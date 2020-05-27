@@ -1,10 +1,12 @@
 {
-  "name": "webpack-typescript-starter",
+  "name": "graphql-ts-starter",
   "version": "0.0.1",
-  "description": "A simple Webpack 4 starter with TypeScript transpilation",
-  "main": "index.js",
+  "description": "A minimal repository with starter code for making a GraphQL API with Express and Mongoose",
+  "main": "dist/main.bundle.js",
   "scripts": {
-    "start": "webpack-dev-server --port 9000 --inline --progress --profile --colors --watch --content-base src/ --mode development",
+    "start": "npm-run-all --parallel watch:server watch:build",
+    "watch:build": "webpack --watch --mode development",
+    "watch:server": "nodemon \"./dist/main.bundle.js\" --watch \"./dist\"",
     "build": "webpack --config webpack.config.js --mode production",
     "build.prod": "webpack --config webpack.config.js -p",
     "build.esnext": "npm run build:types && npm run build:js",
@@ -13,12 +15,7 @@
     "build.all": "npm run build.prod && npm run build.esnext",
     "test": "karma start karma.config.js"
   },
-  "keywords": [
-    "webpack",
-    "webpack4",
-    "typescript"
-  ],
-  "author": "Juri Strumpflohner",
+  "author": "Sandipan Dey",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -35,6 +32,8 @@
     "karma-jasmine": "3.2.0",
     "karma-phantomjs-launcher": "1.0.4",
     "karma-webpack": "4.0.2",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
     "source-map-loader": "1.0.0",
     "tslint": "6.1.2",
     "tslint-loader": "3.6.0",
