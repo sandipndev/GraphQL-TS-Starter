@@ -21,10 +21,9 @@ interface IUser extends mongoose.Document {
   password: string;
 }
 
-userSchema.pre<IUser>("save", async function (next) {
+userSchema.pre<IUser>("save", async function () {
   if (this.isModified("password"))
     this.password = await hash(this.password, 10);
-  next();
 });
 
 export default mongoose.model("User", userSchema);
