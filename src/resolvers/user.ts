@@ -20,6 +20,9 @@ export default {
   },
   Mutation: {
     signUp: (_: any, args: object) => {
+      // TODO not auth
+
+      // TODO unique
       return User.create(args);
     },
   },
