@@ -1,7 +1,4 @@
-import { gql } from "apollo-server-express";
+import root from "./root";
+import user from "./user";
 
-export default gql`
-  type Query {
-    name: String!
-  }
-`;
+export default [root, user];

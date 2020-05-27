@@ -1,5 +1,3 @@
-export default {
-  Query: {
-    name: () => "Sandipan",
-  },
-};
+import user from "./user";
+
+export default [user];
