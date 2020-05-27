@@ -41,5 +41,9 @@
     "webpack": "4.43.0",
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.11.0"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.14.0",
+    "express": "^4.17.1"
   }
 }
