@@ -46,10 +46,19 @@ module.exports = {
         exclude: [/node_modules/],
         use: "awesome-typescript-loader",
       },
+
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: "javascript/auto",
+      },
     ],
   },
 
   devtool: "cheap-module-source-map",
   devServer: {},
   target: "node",
+  stats: {
+    warnings: false,
+  },
 };
