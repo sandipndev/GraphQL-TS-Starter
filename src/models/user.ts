@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { hash } from "bcryptjs";
+import { hash, compare } from "bcryptjs";
 
 const userSchema = new mongoose.Schema(
   {
@@ -36,11 +36,15 @@ export interface IUserDocument extends mongoose.Document {
   password: string;
 }
 
-export interface IUserModel extends mongoose.Model<IUserDocument> {
+export interface IUser extends IUserDocument {
+  matchesPassword: (password: string) => Promise<boolean>;
+}
+
+export interface IUserModel extends mongoose.Model<IUser> {
   checkUnique(field: string, value: any): Promise<boolean>;
 }
 
-userSchema.pre<IUserDocument>("save", async function () {
+userSchema.pre<IUser>("save", async function () {
   if (this.isModified("password"))
     this.password = await hash(this.password, 10);
 });
@@ -52,8 +56,9 @@ userSchema.statics.checkUnique = async function (
   return (await this.where(field).equals(value).countDocuments()) === 0;
 };
 
-const User: IUserModel = mongoose.model<IUserDocument, IUserModel>(
-  "User",
-  userSchema
-);
+userSchema.methods.matchesPassword = function (password: string) {
+  return compare(password, this.password);
+};
+
+const User: IUserModel = mongoose.model<IUser, IUserModel>("User", userSchema);
 export default User;

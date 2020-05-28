@@ -33,6 +33,7 @@ const setupServer = async () => {
     typeDefs,
     resolvers,
     playground: !IN_PROD,
+    context: ({ req, res }) => ({ req, res }),
   });
 
   const RedisStore = connectRedis(session);
