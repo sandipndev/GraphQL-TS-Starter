@@ -77,7 +77,18 @@ export default {
       const { email, password } = args;
       const user = await Auth.attemptSignIn(email, password);
 
+      req.session.userId = user.id;
+
       return user;
+    },
+
+    signOut: (
+      root: any,
+      args: object,
+      { req, res }: { req: express.Request; res: express.Response }
+    ) => {
+      Auth.checkSignedIn(req);
+      Auth.signOut(req, res);
     },
   },
 };
