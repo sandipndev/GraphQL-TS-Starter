@@ -32,7 +32,14 @@ const setupServer = async () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    playground: !IN_PROD,
+    playground: IN_PROD
+      ? false
+      : {
+          settings: {
+            "editor.theme": "light",
+            "request.credentials": "include",
+          },
+        },
     context: ({ req, res }) => ({ req, res }),
   });
 
@@ -64,7 +71,7 @@ const setupServer = async () => {
   app.disable("x-powered-by");
   app.disable("etag");
 
-  server.applyMiddleware({ app });
+  server.applyMiddleware({ app, cors: false });
 
   app.listen(APP_PORT, () =>
     console.log(

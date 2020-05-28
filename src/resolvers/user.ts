@@ -57,9 +57,11 @@ export default {
       info: any
     ) => {
       Auth.checkSignedOut(req);
-
       await Joi.validate(args, signUp, { abortEarly: false });
-      return User.create(args);
+
+      const user = await User.create(args);
+      req.session.userId = user.id;
+      return user;
     },
 
     signIn: async (
@@ -82,13 +84,13 @@ export default {
       return user;
     },
 
-    signOut: (
+    signOut: async (
       root: any,
       args: object,
       { req, res }: { req: express.Request; res: express.Response }
     ) => {
       Auth.checkSignedIn(req);
-      Auth.signOut(req, res);
+      return await Auth.signOut(req, res);
     },
   },
 };

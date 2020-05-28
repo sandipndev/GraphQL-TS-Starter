@@ -32,6 +32,6 @@ export const signUp = Joi.object().keys({
 });
 
 export const signIn = Joi.object().keys({
-  username,
+  email,
   password,
 });
