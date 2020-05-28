@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       validate: {
-        validator: async (email: string): Promise<boolean> =>
+        validator: (email: string): Promise<boolean> =>
           User.checkUnique("email", email),
         message: ({ value }) => `Account with email ${value} already exists`,
       },
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       validate: {
-        validator: async (username: string): Promise<boolean> =>
+        validator: (username: string): Promise<boolean> =>
           User.checkUnique("username", username),
         message: ({ value }) => `Username ${value} has been taken`,
       },
