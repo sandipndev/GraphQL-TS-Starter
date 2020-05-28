@@ -3,7 +3,7 @@ import Joi from "joi";
 import { UserInputError } from "apollo-server-express";
 
 import { User } from "../models";
-import { SignUp } from "../schemas";
+import { signUp } from "../schemas";
 
 export default {
   Query: {
@@ -25,7 +25,7 @@ export default {
       // TODO not auth
       // TODO unique, val
 
-      await Joi.validate(args, SignUp, { abortEarly: false });
+      await Joi.validate(args, signUp, { abortEarly: false });
       return User.create(args);
     },
   },
