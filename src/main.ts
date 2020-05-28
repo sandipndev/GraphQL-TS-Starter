@@ -5,10 +5,10 @@ import { ApolloServer } from "apollo-server-express";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 
-const PORT = process.env.PORT || 4000;
+import { APP_PORT, MONGODB_URL } from "./config";
 
 const setupServer = async () => {
-  await mongoose.connect("mongodb://localhost:27017/test", {
+  await mongoose.connect(MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
@@ -24,9 +24,9 @@ const setupServer = async () => {
 
   server.applyMiddleware({ app });
 
-  app.listen(PORT, () =>
+  app.listen(APP_PORT, () =>
     console.log(
-      `🚀 Apollo Server - http://localhost:${PORT}${server.graphqlPath}`
+      `🚀 Apollo Server - http://localhost:${APP_PORT}${server.graphqlPath}`
     )
   );
 };
