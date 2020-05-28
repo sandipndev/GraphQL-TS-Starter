@@ -61,7 +61,7 @@ const setupServer = async () => {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        maxAge: SESS_LIFETIME as number,
+        maxAge: parseInt(String(SESS_LIFETIME)),
         sameSite: true,
         secure: IN_PROD,
       },
